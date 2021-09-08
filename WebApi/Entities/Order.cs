@@ -14,5 +14,6 @@ namespace WebApi.Entities
         public Movie Movie { get; set; }
         public DateTime OrderDate { get; set; }
         public float Price { get; set; }
+        public bool isActive { get; set; } = true;
     }
 }

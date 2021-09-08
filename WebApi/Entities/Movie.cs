@@ -16,6 +16,6 @@ namespace WebApi.Entities
         public int GenreID { get; set; }
         public Genre Genre { get; set; }
         public ICollection<Actor> Actors { get; set; }
-        public bool isActive { get; set; }
+        public bool isActive { get; set; } = true;
     }
 }
