@@ -1,5 +1,6 @@
 using AutoMapper;
 using WebApi.Application.ActorOperations.Commands.CreateActor;
+using WebApi.Application.ActorOperations.Commands.DirectorOperations.CreateDirector;
 using WebApi.Application.ActorOperations.Queries.GetActorDetail;
 using WebApi.Application.ActorOperations.Queries.GetActors;
 using WebApi.Application.GenreOperations.Queries.GetGenres;
@@ -15,6 +16,7 @@ namespace WebApi.Common
             CreateMap<Actor, GetActorsModel>();
             CreateMap<Actor, GetActorDetailModel>();
             CreateMap<CreateActorModel, Actor>();
+            CreateMap<CreateDirectorModel, Director>();
         }
     }
 }
