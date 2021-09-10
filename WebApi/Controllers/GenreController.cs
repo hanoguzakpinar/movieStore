@@ -1,7 +1,7 @@
 using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Application.Queries.GetGenres;
+using WebApi.Application.GenreOperations.Queries.GetGenres;
 using WebApi.DBOperations;
 
 namespace WebApi.Controllers
