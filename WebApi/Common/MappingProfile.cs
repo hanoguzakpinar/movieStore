@@ -1,4 +1,5 @@
 using AutoMapper;
+using WebApi.Application.ActorOperations.Queries.GetActorDetail;
 using WebApi.Application.ActorOperations.Queries.GetActors;
 using WebApi.Application.GenreOperations.Queries.GetGenres;
 using WebApi.Entities;
@@ -11,6 +12,7 @@ namespace WebApi.Common
         {
             CreateMap<Genre, GenresViewModel>();
             CreateMap<Actor, GetActorsModel>();
+            CreateMap<Actor, GetActorDetailModel>();
         }
     }
 }
