@@ -29,6 +29,7 @@ namespace WebApi.Controllers
             var _actors = query.Handle();
             return Ok(_actors);
         }
+        
         [HttpGet("{id}")]
         public IActionResult GetActorDetail(int id)
         {

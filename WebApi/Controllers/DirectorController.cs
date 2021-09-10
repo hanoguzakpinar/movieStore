@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Application.DirectorOperations.CreateDirector;
 using WebApi.Application.DirectorOperations.DeleteDirector;
+using WebApi.Application.DirectorOperations.Queries.GetDirectors;
 using WebApi.Application.DirectorOperations.UpdateDirector;
 using WebApi.DBOperations;
 
@@ -60,5 +61,12 @@ namespace WebApi.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        public IActionResult GetDirectors()
+        {
+            GetDirectorsQuery query = new GetDirectorsQuery(_context, _mapper);
+            var _director = query.Handle();
+            return Ok(_director);
+        }
     }
 }
