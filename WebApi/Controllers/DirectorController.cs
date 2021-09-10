@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Application.ActorOperations.Commands.DirectorOperations.CreateDirector;
 using WebApi.Application.DirectorOperations.CreateDirector;
+using WebApi.Application.DirectorOperations.DeleteDirector;
 using WebApi.DBOperations;
 
 namespace WebApi.Controllers
@@ -31,5 +32,19 @@ namespace WebApi.Controllers
             command.Handle();
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteActor(int id)
+        {
+            DeleteDirectorCommand query = new DeleteDirectorCommand(_context);
+            query.directorID = id;
+
+            DeleteDirectorCommandValidator validator = new DeleteDirectorCommandValidator();
+            validator.ValidateAndThrow(query);
+
+            query.Handle();
+            return Ok();
+        }
+
     }
 }
