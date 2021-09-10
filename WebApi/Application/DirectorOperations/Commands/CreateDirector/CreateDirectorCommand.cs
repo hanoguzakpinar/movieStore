@@ -4,7 +4,7 @@ using System.Linq;
 using System;
 using WebApi.Entities;
 
-namespace WebApi.Application.ActorOperations.Commands.DirectorOperations.CreateDirector
+namespace WebApi.Application.DirectorOperations.CreateDirector
 {
     public class CreateDirectorCommand
     {

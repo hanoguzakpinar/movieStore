@@ -1,5 +1,4 @@
 using FluentValidation;
-using WebApi.Application.ActorOperations.Commands.DirectorOperations.CreateDirector;
 
 namespace WebApi.Application.DirectorOperations.CreateDirector
 {

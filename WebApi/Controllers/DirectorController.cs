@@ -1,9 +1,9 @@
 using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.Application.ActorOperations.Commands.DirectorOperations.CreateDirector;
 using WebApi.Application.DirectorOperations.CreateDirector;
 using WebApi.Application.DirectorOperations.DeleteDirector;
+using WebApi.Application.DirectorOperations.UpdateDirector;
 using WebApi.DBOperations;
 
 namespace WebApi.Controllers
@@ -21,10 +21,10 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateActor([FromBody] CreateDirectorModel _actor)
+        public IActionResult CreateDirector([FromBody] CreateDirectorModel _director)
         {
             CreateDirectorCommand command = new CreateDirectorCommand(_context, _mapper);
-            command.Model = _actor;
+            command.Model = _director;
 
             CreateDirectorCommandValidator validator = new CreateDirectorCommandValidator();
             validator.ValidateAndThrow(command);
@@ -34,7 +34,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteActor(int id)
+        public IActionResult DeleteDirector(int id)
         {
             DeleteDirectorCommand query = new DeleteDirectorCommand(_context);
             query.directorID = id;
@@ -43,6 +43,20 @@ namespace WebApi.Controllers
             validator.ValidateAndThrow(query);
 
             query.Handle();
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateDirector(int id, [FromBody] UpdateDirectorModel _director)
+        {
+            UpdateDirectorCommand command = new UpdateDirectorCommand(_context);
+            command.Model = _director;
+            command.directorID = id;
+
+            UpdateDirectorCommandValidator validator = new UpdateDirectorCommandValidator();
+            validator.ValidateAndThrow(command);
+
+            command.Handle();
             return Ok();
         }
 
