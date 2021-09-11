@@ -7,6 +7,7 @@ using WebApi.Application.DirectorOperations.GetDirectorDetail;
 using WebApi.Application.DirectorOperations.Queries.GetDirectors;
 using WebApi.Application.DirectorOperations.UpdateDirector;
 using WebApi.Application.GenreOperations.Queries.GetGenres;
+using WebApi.Application.MovieOperations.Queries.GetMovies;
 using WebApi.Entities;
 
 namespace WebApi.Common
@@ -20,9 +21,9 @@ namespace WebApi.Common
             CreateMap<Actor, GetActorDetailModel>();
             CreateMap<CreateActorModel, Actor>();
             CreateMap<CreateDirectorModel, Director>();
-            CreateMap<UpdateDirectorModel, Director>();
             CreateMap<Director, GetDirectorsModel>();
             CreateMap<Director, GetDirectorDetailModel>();
+            CreateMap<Movie, GetMoviesModel>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name)).ForMember(x => x.Director, y => y.MapFrom(z => z.Director.Name + " " + z.Director.Surname));
         }
     }
 }

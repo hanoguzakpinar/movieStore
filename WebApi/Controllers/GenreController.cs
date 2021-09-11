@@ -1,5 +1,4 @@
 using AutoMapper;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Application.GenreOperations.Queries.GetGenres;
 using WebApi.DBOperations;
