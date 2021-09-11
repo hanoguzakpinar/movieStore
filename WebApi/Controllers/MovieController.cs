@@ -1,5 +1,7 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Application.MovieOperations.Queries.GetMovieDetail;
 using WebApi.Application.MovieOperations.Queries.GetMovies;
 using WebApi.DBOperations;
 
@@ -23,6 +25,19 @@ namespace WebApi.Controllers
             GetMoviesQuery query = new GetMoviesQuery(_context, _mapper);
             var _movies = query.Handle();
             return Ok(_movies);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetMovieDetail(int id)
+        {
+            GetMovieDetailQuery query = new GetMovieDetailQuery(_context, _mapper);
+            query.movieID = id;
+
+            GetMovieDetailQueryValidator validator = new GetMovieDetailQueryValidator();
+            validator.ValidateAndThrow(query);
+
+            var _movie = query.Handle();
+            return Ok(_movie);
         }
     }
 }

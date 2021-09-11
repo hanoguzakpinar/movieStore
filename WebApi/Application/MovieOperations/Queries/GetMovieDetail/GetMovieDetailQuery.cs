@@ -4,6 +4,7 @@ using WebApi.DBOperations;
 using WebApi.Entities;
 using System.Linq;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebApi.Application.MovieOperations.Queries.GetMovieDetail
 {
@@ -20,7 +21,7 @@ namespace WebApi.Application.MovieOperations.Queries.GetMovieDetail
 
         public GetMovieDetailModel Handle()
         {
-            var _movie = _context.Movies.SingleOrDefault(x => x.Id == movieID);
+            var _movie = _context.Movies.Include(x => x.Genre).Include(y => y.Director).SingleOrDefault(x => x.Id == movieID);
             if (_movie is null)
                 throw new InvalidOperationException("Movie bulunamadı.");
 
