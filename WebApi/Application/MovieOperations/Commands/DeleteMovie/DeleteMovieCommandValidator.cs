@@ -1,12 +1,12 @@
-// using FluentValidation;
+using FluentValidation;
 
-// namespace WebApi.Application.ActorOperations.Commands.DeleteActor
-// {
-//     public class DeleteActorCommandValidator : AbstractValidator<DeleteActorCommand>
-//     {
-//         public DeleteActorCommandValidator()
-//         {
-//             RuleFor(x => x.actorID).GreaterThan(0);
-//         }
-//     }
-// }
+namespace WebApi.Application.MovieOperations.Commands.DeleteMovie
+{
+    public class DeleteMovieCommandValidator : AbstractValidator<DeleteMovieCommand>
+    {
+        public DeleteMovieCommandValidator()
+        {
+            RuleFor(x => x.movieID).GreaterThan(0);
+        }
+    }
+}
