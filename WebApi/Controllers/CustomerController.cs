@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using WebApi.Application.CustomerOperations.Commands.CreateToken;
 using WebApi.Application.CustomerOperations.Commands.RefreshToken;
 using WebApi.Application.CustomerOperations.CreateCustomer;
+using WebApi.Application.CustomerOperations.DeleteCustomer;
 using WebApi.DBOperations;
 using WebApi.TokenOperations.Models;
 
@@ -59,6 +60,19 @@ namespace WebApi.Controllers
             var resultToken = cmd.Handle();
 
             return resultToken;
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCustomer(int id)
+        {
+            DeleteCustomerCommand query = new DeleteCustomerCommand(_context);
+            query.customerID = id;
+
+            DeleteCustomerCommandValidator validator = new DeleteCustomerCommandValidator();
+            validator.ValidateAndThrow(query);
+
+            query.Handle();
+            return Ok();
         }
     }
 }
