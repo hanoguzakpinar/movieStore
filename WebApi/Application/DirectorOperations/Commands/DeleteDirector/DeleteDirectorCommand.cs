@@ -18,6 +18,10 @@ namespace WebApi.Application.DirectorOperations.DeleteDirector
             if (_director is null)
                 throw new InvalidOperationException("Director bulunamadı.");
 
+            var _movie = _context.Movies.FirstOrDefault(x => x.DirectorID == directorID);
+            if (_movie is not null)
+                throw new InvalidOperationException("Director silinemez. Mevcut Filmi Var.");
+
             _context.Directors.Remove(_director);
             _context.SaveChanges();
         }

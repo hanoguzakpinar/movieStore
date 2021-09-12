@@ -18,6 +18,10 @@ namespace WebApi.Application.MovieOperations.Commands.DeleteMovie
             if (_movie is null)
                 throw new InvalidOperationException("Movie bulunamadı.");
 
+            var _order = _context.Orders.FirstOrDefault(x => x.MovieID == movieID);
+            if (_order is not null)
+                throw new InvalidOperationException("Movie silinemez. Siparişi Var.");
+
             _context.Movies.Remove(_movie);
             _context.SaveChanges();
         }
