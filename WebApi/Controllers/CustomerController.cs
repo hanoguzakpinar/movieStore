@@ -1,4 +1,5 @@
 using AutoMapper;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using WebApi.Application.CustomerOperations.Commands.CreateToken;
@@ -29,6 +30,9 @@ namespace WebApi.Controllers
         {
             CreateCustomerCommand command = new CreateCustomerCommand(_context, _mapper);
             command.Model = newCustomer;
+
+            CreateCustomerCommandValidator validator = new CreateCustomerCommandValidator();
+            validator.ValidateAndThrow(command);
 
             command.Handle();
 

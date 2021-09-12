@@ -11,7 +11,7 @@ using WebApi.DBOperations;
 
 namespace WebApi.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("[controller]s")]
     public class ActorController : ControllerBase
