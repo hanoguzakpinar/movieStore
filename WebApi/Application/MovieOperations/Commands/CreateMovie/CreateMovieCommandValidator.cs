@@ -12,7 +12,6 @@ namespace WebApi.Application.MovieOperations.Commands.CreateMovie
             RuleFor(x => x.Model.DirectorID).GreaterThan(0);
             RuleFor(x => x.Model.GenreID).GreaterThan(0);
             RuleFor(x => x.Model.ReleaseDate).NotEmpty().LessThan(DateTime.Now.Date);
-            
         }
     }
 }
