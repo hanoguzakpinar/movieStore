@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Application.MovieOperations.Commands.CreateMovie;
 using WebApi.Application.MovieOperations.Commands.DeleteMovie;
+using WebApi.Application.MovieOperations.Commands.UpdateMovie;
 using WebApi.Application.MovieOperations.Queries.GetMovieDetail;
 using WebApi.Application.MovieOperations.Queries.GetMovies;
 using WebApi.DBOperations;
@@ -65,6 +66,20 @@ namespace WebApi.Controllers
             validator.ValidateAndThrow(command);
 
             command.Handle();
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateMovie(int id, [FromBody] UpdateMovieModel _update)
+        {
+            UpdateMovieCommand updt = new UpdateMovieCommand(_context);
+            updt.Model = _update;
+            updt.movieID = id;
+            
+            UpdateMovieCommandValidator validator = new UpdateMovieCommandValidator();
+            validator.ValidateAndThrow(updt);
+            updt.Handle();
+
             return Ok();
         }
     }

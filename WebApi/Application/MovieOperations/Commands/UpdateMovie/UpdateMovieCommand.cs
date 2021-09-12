@@ -1,36 +1,44 @@
-// using WebApi.DBOperations;
-// using System.Linq;
-// using System;
+using System;
+using System.Linq;
+using WebApi.DBOperations;
 
-// namespace WebApi.Application.ActorOperations.Commands.UpdateActor
-// {
-//     public class UpdateActorCommand
-//     {
-//         private readonly IMovieStoreDbContext _context;
-//         public UpdateActorModel Model { get; set; }
-//         public int actorID { get; set; }
-//         public UpdateActorCommand(IMovieStoreDbContext context)
-//         {
-//             _context = context;
-//         }
-//         public void Handle()
-//         {
-//             var _actor = _context.Actors.SingleOrDefault(x => x.Id == actorID);
-//             if (_actor is null)
-//                 throw new InvalidOperationException("Actor bulunamadı.");
+namespace WebApi.Application.MovieOperations.Commands.UpdateMovie
+{
+    public class UpdateMovieCommand
+    {
+        public UpdateMovieModel Model { get; set; }
+        public int movieID { get; set; }
+        private readonly IMovieStoreDbContext _context;
+        public UpdateMovieCommand(IMovieStoreDbContext context)
+        {
+            _context = context;
+        }
 
-//             if (_context.Actors.Any(x => x.Name.ToLower() == Model.Name.ToLower() && x.Surname.ToLower() == Model.Surname.ToLower() && x.Id != actorID))
-//                 throw new InvalidOperationException("Actor mevcut.");
+        public void Handle()
+        {
+            var _status = _context.Movies.SingleOrDefault(x => x.Id == movieID);
+            if (_status is null)
+                throw new InvalidOperationException("Movie bulunamadı.");
 
-//             _actor.Name = _actor.Name != default ? _actor.Name = Model.Name : _actor.Name;
-//             _actor.Surname = _actor.Surname != default ? _actor.Surname = Model.Surname : _actor.Surname;
+            _status.GenreID = _status.GenreID != default ? Model.GenreID : _status.GenreID;
+            _status.Price = _status.Price != default ? Model.Price : _status.Price;
+            _status.ReleaseDate = _status.ReleaseDate != default ? Model.ReleaseDate : _status.ReleaseDate;
+            _status.Name = _status.Name != default ? Model.Name : _status.Name;
+            _status.DirectorID = _status.DirectorID != default ? Model.DirectorID : _status.DirectorID;
 
-//             _context.SaveChanges();
-//         }
-//     }
-//     public class UpdateActorModel
-//     {
-//         public string Name { get; set; }
-//         public string Surname { get; set; }
-//     }
-// }
+            _context.Movies.Update(_status);
+
+            _context.SaveChanges();
+
+        }
+    }
+
+    public class UpdateMovieModel
+    {
+        public string Name { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public int GenreID { get; set; }
+        public int DirectorID { get; set; }
+        public float Price { get; set; }
+    }
+}
