@@ -25,5 +25,22 @@ namespace WebApi.Application.MovieOperations.Commands.DeleteMovie
             _context.Movies.Remove(_movie);
             _context.SaveChanges();
         }
+
+        /* Alternatif - isActive
+
+        public void Handle()
+        {
+            var _status = _context.Movies.SingleOrDefault(x => x.Id == movieID);
+            if (_status is null)
+                throw new InvalidOperationException("Movie bulunamadı.");
+
+             _status.isActive = false;
+
+            _context.Movies.Update(_status);
+
+            _context.SaveChanges();
+        }
+
+        */
     }
 }

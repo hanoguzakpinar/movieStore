@@ -25,11 +25,10 @@ namespace WebApi.Application.MovieOperations.Commands.UpdateMovie
             _status.ReleaseDate = _status.ReleaseDate != default ? Model.ReleaseDate : _status.ReleaseDate;
             _status.Name = _status.Name != default ? Model.Name : _status.Name;
             _status.DirectorID = _status.DirectorID != default ? Model.DirectorID : _status.DirectorID;
-
+           
             _context.Movies.Update(_status);
 
             _context.SaveChanges();
-
         }
     }
 
