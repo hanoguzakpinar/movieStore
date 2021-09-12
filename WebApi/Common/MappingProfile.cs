@@ -3,6 +3,7 @@ using WebApi.Application.ActorOperations.Commands.CreateActor;
 using WebApi.Application.ActorOperations.Queries.GetActorDetail;
 using WebApi.Application.ActorOperations.Queries.GetActors;
 using WebApi.Application.CustomerOperations.CreateCustomer;
+using WebApi.Application.CustomerOperations.GetOrders;
 using WebApi.Application.DirectorOperations.CreateDirector;
 using WebApi.Application.DirectorOperations.GetDirectorDetail;
 using WebApi.Application.DirectorOperations.Queries.GetDirectors;
@@ -31,6 +32,7 @@ namespace WebApi.Common
             CreateMap<CreateMovieModel, Movie>();
             CreateMap<CreateCustomerModel, Customer>();
             CreateMap<CreateOrderModel, Order>();
+            CreateMap<Order, GetOrdersView>().ForMember(dest => dest.Movie, opt => opt.MapFrom(src => src.Movie.Name)).ForMember(x => x.Customer, y => y.MapFrom(z => z.Customer.Name + " " + z.Customer.Surname));
         }
     }
 }

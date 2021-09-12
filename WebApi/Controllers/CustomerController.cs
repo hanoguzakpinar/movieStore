@@ -6,6 +6,7 @@ using WebApi.Application.CustomerOperations.Commands.CreateToken;
 using WebApi.Application.CustomerOperations.Commands.RefreshToken;
 using WebApi.Application.CustomerOperations.CreateCustomer;
 using WebApi.Application.CustomerOperations.DeleteCustomer;
+using WebApi.Application.CustomerOperations.GetOrders;
 using WebApi.DBOperations;
 using WebApi.TokenOperations.Models;
 
@@ -73,6 +74,19 @@ namespace WebApi.Controllers
 
             query.Handle();
             return Ok();
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetOrders(int id)
+        {
+            GetOrdersQuery query = new GetOrdersQuery(_context, _mapper);
+            query.customerID = id;
+
+            GetOrdersQueryValidator validator = new GetOrdersQueryValidator();
+            validator.ValidateAndThrow(query);
+
+            var _orders = query.Handle();
+            return Ok(_orders);
         }
     }
 }
