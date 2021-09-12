@@ -1,8 +1,11 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using WebApi.Application.CustomerOperations.Commands.CreateToken;
+using WebApi.Application.CustomerOperations.Commands.RefreshToken;
 using WebApi.Application.CustomerOperations.CreateCustomer;
 using WebApi.DBOperations;
+using WebApi.TokenOperations.Models;
 
 namespace WebApi.Controllers
 {
@@ -30,6 +33,28 @@ namespace WebApi.Controllers
             command.Handle();
 
             return Ok();
+        }
+
+        [HttpPost("connect/token")]
+        public ActionResult<Token> CreateToken([FromBody] CreateTokenModel login)
+        {
+            CreateTokenCommand cmd = new CreateTokenCommand(_context, _mapper, _configuration);
+            cmd.Model = login;
+
+            var token = cmd.Handle();
+
+            return token;
+        }
+
+        [HttpGet("refreshToken")]
+        public ActionResult<Token> RefreshToken([FromQuery] string token)
+        {
+            RefreshTokenCommand cmd = new RefreshTokenCommand(_context, _configuration);
+            cmd.RefreshToken = token;
+
+            var resultToken = cmd.Handle();
+
+            return resultToken;
         }
     }
 }
