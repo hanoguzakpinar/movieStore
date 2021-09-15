@@ -2,6 +2,7 @@ using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Application.OrderOperations.CreateOrder;
+using WebApi.Application.OrderOperations.DeleteOrder;
 using WebApi.Application.OrderOperations.GetOrders;
 using WebApi.DBOperations;
 
@@ -38,6 +39,19 @@ namespace WebApi.Controllers
             GetOrdersQuery query = new GetOrdersQuery(_context, _mapper);
             var _orders = query.Handle();
             return Ok(_orders);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteOrder(int id)
+        {
+            DeleteOrderCommand query = new DeleteOrderCommand(_context);
+            query.orderID = id;
+
+            DeleteOrderCommandValidator validator = new DeleteOrderCommandValidator();
+            validator.ValidateAndThrow(query);
+
+            query.Handle();
+            return Ok();
         }
     }
 }
