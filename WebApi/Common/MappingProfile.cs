@@ -7,6 +7,7 @@ using WebApi.Application.CustomerOperations.CreateCustomer;
 using WebApi.Application.CustomerOperations.GetOrders;
 using WebApi.Application.DirectorOperations.CreateDirector;
 using WebApi.Application.DirectorOperations.GetDirectorDetail;
+using WebApi.Application.DirectorOperations.Queries.GetDirectorMovies;
 using WebApi.Application.DirectorOperations.Queries.GetDirectors;
 using WebApi.Application.GenreOperations.Queries.GetGenres;
 using WebApi.Application.MovieOperations.Commands.CreateMovie;
@@ -37,6 +38,7 @@ namespace WebApi.Common
             CreateMap<Order, GetOrdersView>().ForMember(dest => dest.Movie, opt => opt.MapFrom(src => src.Movie.Name)).ForMember(x => x.Customer, y => y.MapFrom(z => z.Customer.Name + " " + z.Customer.Surname));
             CreateMap<Order, GetOrdersModel>().ForMember(dest => dest.Movie, opt => opt.MapFrom(src => src.Movie.Name)).ForMember(x => x.Customer, y => y.MapFrom(z => z.Customer.Name + " " + z.Customer.Surname));
             CreateMap<Movie, GetActorMoviesModel>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name)).ForMember(x => x.Director, y => y.MapFrom(z => z.Director.Name + " " + z.Director.Surname));
+            CreateMap<Movie, GetDirectorMoviesModel>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name)).ForMember(x => x.Director, y => y.MapFrom(z => z.Director.Name + " " + z.Director.Surname));
         }
     }
 }

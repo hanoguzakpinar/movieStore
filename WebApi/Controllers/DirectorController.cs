@@ -5,6 +5,7 @@ using WebApi.Application.DirectorOperations.CreateDirector;
 using WebApi.Application.DirectorOperations.DeleteDirector;
 using WebApi.Application.DirectorOperations.GetDirectorDetail;
 using WebApi.Application.DirectorOperations.Queries.GetDirectorDetail;
+using WebApi.Application.DirectorOperations.Queries.GetDirectorMovies;
 using WebApi.Application.DirectorOperations.Queries.GetDirectors;
 using WebApi.Application.DirectorOperations.UpdateDirector;
 using WebApi.DBOperations;
@@ -82,6 +83,18 @@ namespace WebApi.Controllers
 
             var _director = query.Handle();
             return Ok(_director);
+        }
+        [HttpGet("directormovies/{id}")]
+        public IActionResult GetActorMovies(int id)
+        {
+            GetDirectorMoviesQuery query = new GetDirectorMoviesQuery(_context, _mapper);
+            query.directorID = id;
+
+            GetDirectorMoviesQueryValidator validator = new GetDirectorMoviesQueryValidator();
+            validator.ValidateAndThrow(query);
+
+            var _actormovies = query.Handle();
+            return Ok(_actormovies);
         }
     }
 }
