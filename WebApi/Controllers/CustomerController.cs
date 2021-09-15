@@ -7,6 +7,7 @@ using WebApi.Application.CustomerOperations.Commands.RefreshToken;
 using WebApi.Application.CustomerOperations.CreateCustomer;
 using WebApi.Application.CustomerOperations.DeleteCustomer;
 using WebApi.Application.CustomerOperations.GetOrders;
+using WebApi.Application.CustomerOperations.UpdateCustomer;
 using WebApi.DBOperations;
 using WebApi.TokenOperations.Models;
 
@@ -76,7 +77,7 @@ namespace WebApi.Controllers
             return Ok();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("customerOrders/{id}")]
         public IActionResult GetOrders(int id)
         {
             GetOrdersQuery query = new GetOrdersQuery(_context, _mapper);
@@ -87,6 +88,20 @@ namespace WebApi.Controllers
 
             var _orders = query.Handle();
             return Ok(_orders);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateCustomer(int id,[FromBody] UpdateCustomerModel _model)
+        {
+            UpdateCustomerCommand command = new UpdateCustomerCommand(_context);
+            command.customerID = id;
+            command.Model = _model;
+
+            UpdateCustomerCommandValidator validator = new UpdateCustomerCommandValidator();
+            validator.ValidateAndThrow(command);
+
+            command.Handle();
+            return Ok();
         }
     }
 }
