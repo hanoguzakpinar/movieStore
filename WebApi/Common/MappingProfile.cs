@@ -1,6 +1,7 @@
 using AutoMapper;
 using WebApi.Application.ActorOperations.Commands.CreateActor;
 using WebApi.Application.ActorOperations.Queries.GetActorDetail;
+using WebApi.Application.ActorOperations.Queries.GetActorMovies;
 using WebApi.Application.ActorOperations.Queries.GetActors;
 using WebApi.Application.CustomerOperations.CreateCustomer;
 using WebApi.Application.CustomerOperations.GetOrders;
@@ -35,6 +36,7 @@ namespace WebApi.Common
             CreateMap<CreateOrderModel, Order>();
             CreateMap<Order, GetOrdersView>().ForMember(dest => dest.Movie, opt => opt.MapFrom(src => src.Movie.Name)).ForMember(x => x.Customer, y => y.MapFrom(z => z.Customer.Name + " " + z.Customer.Surname));
             CreateMap<Order, GetOrdersModel>().ForMember(dest => dest.Movie, opt => opt.MapFrom(src => src.Movie.Name)).ForMember(x => x.Customer, y => y.MapFrom(z => z.Customer.Name + " " + z.Customer.Surname));
+            CreateMap<Movie, GetActorMoviesModel>().ForMember(dest => dest.Genre, opt => opt.MapFrom(src => src.Genre.Name)).ForMember(x => x.Director, y => y.MapFrom(z => z.Director.Name + " " + z.Director.Surname));
         }
     }
 }

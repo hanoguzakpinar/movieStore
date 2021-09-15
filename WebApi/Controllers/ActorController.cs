@@ -6,6 +6,7 @@ using WebApi.Application.ActorOperations.Commands.CreateActor;
 using WebApi.Application.ActorOperations.Commands.DeleteActor;
 using WebApi.Application.ActorOperations.Commands.UpdateActor;
 using WebApi.Application.ActorOperations.Queries.GetActorDetail;
+using WebApi.Application.ActorOperations.Queries.GetActorMovies;
 using WebApi.Application.ActorOperations.Queries.GetActors;
 using WebApi.DBOperations;
 
@@ -31,7 +32,7 @@ namespace WebApi.Controllers
             var _actors = query.Handle();
             return Ok(_actors);
         }
-        
+
         [HttpGet("{id}")]
         public IActionResult GetActorDetail(int id)
         {
@@ -83,6 +84,19 @@ namespace WebApi.Controllers
 
             command.Handle();
             return Ok();
+        }
+
+        [HttpGet("actormovies/{id}")]
+        public IActionResult GetActorMovies(int id)
+        {
+            GetActorMoviesQuery query = new GetActorMoviesQuery(_context, _mapper);
+            query.actorID = id;
+
+            GetActorMoviesQueryValidator validator = new GetActorMoviesQueryValidator();
+            validator.ValidateAndThrow(query);
+
+            var _actormovies = query.Handle();
+            return Ok(_actormovies);
         }
     }
 }
