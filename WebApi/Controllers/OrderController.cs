@@ -2,6 +2,7 @@ using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Application.OrderOperations.CreateOrder;
+using WebApi.Application.OrderOperations.GetOrders;
 using WebApi.DBOperations;
 
 namespace WebApi.Controllers
@@ -29,6 +30,14 @@ namespace WebApi.Controllers
 
             command.Handle();
             return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult GetOrders()
+        {
+            GetOrdersQuery query = new GetOrdersQuery(_context, _mapper);
+            var _orders = query.Handle();
+            return Ok(_orders);
         }
     }
 }

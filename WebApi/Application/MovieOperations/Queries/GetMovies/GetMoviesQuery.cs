@@ -19,7 +19,14 @@ namespace WebApi.Application.MovieOperations.Queries.GetMovies
 
         public List<GetMoviesModel> Handle()
         {
-            var _movieList = _context.Movies.Include(x => x.Genre).Include(y => y.Director).OrderBy(z => z.Id).ToList<Movie>();
+            //var _movieList = _context.Movies.Include(x => x.Genre).Include(y => y.Director).OrderBy(z => z.Id).ToList<Movie>();
+            var _movieList = _context.Movies
+                   .Include(x => x.Actors)
+                    .Include(x => x.Genre)
+                     .Include(y => y.Director)
+                      .OrderBy(z => z.Id)
+                      .ToList();
+
             List<GetMoviesModel> mv = _mapper.Map<List<GetMoviesModel>>(_movieList);
             return mv;
         }
@@ -31,5 +38,6 @@ namespace WebApi.Application.MovieOperations.Queries.GetMovies
         public string Genre { get; set; }
         public string Director { get; set; }
         public float Price { get; set; }
+        public ICollection<Actor> Actors { get; set; }
     }
 }

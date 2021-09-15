@@ -53,11 +53,16 @@ namespace WebApi.DBOperations
                 List<Customer> customers = new List<Customer>(){
                     new Customer{Name="Oğuzhan",Surname="Akpınar",Email="oguzhanakpinar@yahoo.com",Password="535353",
                     Genres = new List<Genre>(){genres[5],genres[6]}
+                    },
+                    new Customer{Name="Oğuz",Surname="Han",Email="oguzhan@yahoo.com",Password="343434",
+                    Genres = new List<Genre>(){genres[4],genres[3]}
                     }
                 };
 
                 List<Order> orders = new List<Order>(){
-                    new Order{CustomerID=1,MovieID=1,OrderDate=DateTime.Now.AddMonths(-1),Price=movies[1].Price}
+                    new Order{CustomerID=1,MovieID=1,OrderDate=DateTime.Now.AddMonths(-1),Price=movies[0].Price},
+                    new Order{CustomerID=2,MovieID=2,OrderDate=DateTime.Now.AddMonths(-2),Price=movies[1].Price},
+                    new Order{CustomerID=1,MovieID=2,OrderDate=DateTime.Now.AddMonths(-3),Price=movies[1].Price}
                 };
 
                 if (context.Genres.Any())

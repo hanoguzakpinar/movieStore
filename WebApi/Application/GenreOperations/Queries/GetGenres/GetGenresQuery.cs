@@ -19,7 +19,7 @@ namespace WebApi.Application.GenreOperations.Queries.GetGenres
 
         public List<GenresViewModel> Handle()
         {
-            var genres = _context.Genres.Where(x => x.isActive).OrderBy(x => x.Id);
+            var genres = _context.Genres.OrderBy(x => x.Id);
             List<GenresViewModel> genreList = _mapper.Map<List<GenresViewModel>>(genres);
             return genreList;
         }

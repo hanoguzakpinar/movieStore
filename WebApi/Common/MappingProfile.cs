@@ -12,6 +12,7 @@ using WebApi.Application.MovieOperations.Commands.CreateMovie;
 using WebApi.Application.MovieOperations.Queries.GetMovieDetail;
 using WebApi.Application.MovieOperations.Queries.GetMovies;
 using WebApi.Application.OrderOperations.CreateOrder;
+using WebApi.Application.OrderOperations.GetOrders;
 using WebApi.Entities;
 
 namespace WebApi.Common
@@ -33,6 +34,7 @@ namespace WebApi.Common
             CreateMap<CreateCustomerModel, Customer>();
             CreateMap<CreateOrderModel, Order>();
             CreateMap<Order, GetOrdersView>().ForMember(dest => dest.Movie, opt => opt.MapFrom(src => src.Movie.Name)).ForMember(x => x.Customer, y => y.MapFrom(z => z.Customer.Name + " " + z.Customer.Surname));
+            CreateMap<Order, GetOrdersModel>().ForMember(dest => dest.Movie, opt => opt.MapFrom(src => src.Movie.Name)).ForMember(x => x.Customer, y => y.MapFrom(z => z.Customer.Name + " " + z.Customer.Surname));
         }
     }
 }
